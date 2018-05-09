@@ -2,6 +2,7 @@
 // when user clicks anywhere on the button, the "printQuote" function is called
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
 
+//Initializes quotes array
 var quotes = [
     {
         quote: "Don't cry because it's over, smile because it happened.",
@@ -49,12 +50,46 @@ var quotes = [
     },
 ];
 
+function getRandomQuote(){
+    //Makes a random number used to select the quote to be shown 
+    //The number is between 0 and 9 
+    var quoteNumber = Math.floor((Math.random() * 10));
 
+    //Log quoteNumber to the console
+    console.log(quoteNumber);
 
-function getRandomQuote{
-
+    //Return a given quote object based on the random number generated
+    return quotes[quoteNumber];
 }
 
-function printQuote{
+function printQuote(){
+    //Gets the random quote object and stores it in aQuote
+    var aQuote = getRandomQuote();
+    
+    //Logs the quote to the console
+    console.log(aQuote.quote);
 
+    //Creates a blank html string
+    var htmlString = "";
+
+    //Constructs a string of html to pass to index.html
+    htmlString += "<p class='quote'>" + aQuote.quote + "</p>";
+    htmlString += "<p class='source'>" + aQuote.source;
+
+    //Checks the aQuote object for citation
+    //If citation exists then it is included
+    if(aQuote.citation){
+        htmlString += "<span class='citation'>" + aQuote.citation + "</span>";
+    }
+
+    //Checks the aQuote object for year
+    //If year exists then it is included
+    if(aQuote.year){
+        htmlString += "<span class='year'>" + aQuote.year + "</span>";
+    }
+
+    //Finishes htmlString
+    htmlString += "</p>";
+    
+    document.getElementById('quote-box').innerHTML = htmlString;
 }
